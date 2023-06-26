@@ -1,23 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import Jokes from './services/jokes';
 
 function App() {
+  const data = Jokes()
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+       <h1> Prueba Tecnica para Acid Labs </h1>
+       <main>
+       <pre>{JSON.stringify(data, null, 4)}</pre>
+
+       </main>
       </header>
     </div>
   );
