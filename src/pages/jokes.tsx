@@ -22,19 +22,18 @@ export const Jokes = ({ match }: RouteComponentProps<{ jokeId?: string }>) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const now = new Date()
-    const joke: IJoke = {
+    const jokeForm: IJoke = {
       title: getValue(event, 'title'),
       views: parseInt(getValue(event, 'views')),
       body: getValue(event, 'body'),
       author: getValue(event, 'author'),
-      createdAt: now.toISOString(), // PICK
       id: jokeId
     }
-    if (jokeId)
-      updateJoke(joke)
-    else
-      createJoke(joke)
+    if (jokeId) {
+      jokeForm.createdAt = joke.createdAt
+      updateJoke(jokeForm)
+    } else 
+      createJoke(jokeForm)
   }
 
   return (
@@ -53,7 +52,7 @@ export const Jokes = ({ match }: RouteComponentProps<{ jokeId?: string }>) => {
       </div>
       <div>
         <label htmlFor="date">Created date:</label>
-        <input type="text" id="date" name="date" defaultValue={joke.createdAt}></input>
+        <input readOnly type="text" id="date" name="date" defaultValue={joke.createdAt}></input>
       </div>
       <div>
         <label htmlFor="views">Views:</label>

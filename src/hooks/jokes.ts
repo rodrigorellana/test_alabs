@@ -37,6 +37,8 @@ const useJokes = () => {
 
   const createJoke = async (joke: IJoke) => {
     try {
+      const now = new Date()
+      joke.createdAt = now.toISOString()
       const response = await fetch(URL, {
         method: 'POST',
         headers: {
@@ -53,9 +55,6 @@ const useJokes = () => {
 
   const updateJoke = async (updatedJoke: IJoke) => {
     try {
-      // const response = await axios.put(`/api/jokes/${id}`, updatedJoke);
-      // setJokes(jokes.map(joke => joke.id === id ? response.data : joke));
-      console.log('updatedJoke', updatedJoke)
       const response = await fetch(`${URL}/${updatedJoke.id}`, {
         method: 'PUT',
         headers: {
