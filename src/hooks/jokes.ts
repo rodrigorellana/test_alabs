@@ -11,12 +11,22 @@ const useJokes = () => {
   //   fetchJokes();
   // }, []);
 
+  const sanitizeJoke = (joke: any): IJoke => {
+    return {
+      id: joke.id,
+      title: joke.title || joke.Title,
+      views: joke.views || joke.Views,
+      body: joke.body || joke.Body,
+      author: joke.author || joke.Author,
+      createdAt: joke.createdAt || joke.CreatedAt,
+    }
+  }
+
   const fetchJokes = async () => {
     try {
       const response = await fetch(URL);
-      const data = await response.json()
-      console.log('fetchJokes', data)
-      setJokes(data);
+      const data = await response.json() as IJoke[]
+      setJokes(data.map((joke: any) => sanitizeJoke(joke)));
     } catch (err: any) {
       setError(err.message);
     }
@@ -25,8 +35,8 @@ const useJokes = () => {
   const getJoke = async (id: string) => {
     try {
       const response = await fetch(`${URL}/${id}`);
-      const data = await response.json()
-      setJoke(data);
+      const data = await response.json() as IJoke
+      setJoke(sanitizeJoke(data));
     } catch (err: any) {
       setError(err.message);
     }
