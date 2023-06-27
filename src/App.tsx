@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css'
 import Jokes from './services/jokes';
 import Table from './components/table';
 import { IJoke } from './interfaces/jokes';
 import { Jokes as JokePage } from './pages/jokes';
+import { JokesGET } from './services/jokes';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
- 
+
   const ListJokes = () => {
-    const data = Jokes() as IJoke[]
+    const [data, setData] = React.useState<IJoke[]>([])
+
+    useEffect(() => {
+      const fetchJokes = async () => {
+        const jokes = await JokesGET();
+        console.log({jokes})
+
+        setData(jokes)
+      }
+      fetchJokes()
+    }, [])
+
+
+    // const data = Jokes() as IJoke[]
     return (
       <div className="App">
         <header>
