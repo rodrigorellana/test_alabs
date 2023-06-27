@@ -21,15 +21,38 @@ form {
 
 form > div {
   flex: 1 0;
+  width: 400px;
+}
+form > div  > input{
+  width: 100%;
 }
 
 form > div:last-child {
   margin-top: 0.5em;
+  display: flex;
+}
+
+table {
+  height: 500px;
 }
 
 table td {
   border-right: 0.1rem solid
 }
+
 table th {
   text-align: center;
+}
+
+table tfoot td {
+  border-right: unset !important
+}
+
+table div p {
+  padding-right: 0.3rem;
+}
+
+table > tfoot div {
+  display: flex;
+  justify-content: space-between;
 }

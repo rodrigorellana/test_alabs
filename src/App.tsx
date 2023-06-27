@@ -11,7 +11,6 @@ import useJokes from './hooks/jokes';
 function App() {
 
   const ListJokes = () => {
-    const { jokes: data, error, fetchJokes } = useJokes();
 
     // const [data, setData] = React.useState<IJoke[]>([])
     // useEffect(() => {
@@ -23,16 +22,16 @@ function App() {
     //   fetchJokes()
     // }, [])
 
-    useEffect(() => {
-      fetchJokes()
-    }, [])
+    // useEffect(() => {
+    //   fetchJokes()
+    // }, [])
 
     return (
       <div className="App">
         <header>
           <h1> Prueba Tecnica para Acid Labs </h1>
           <main>
-            <Table data={data} />
+            <Table />
           </main>
         </header>
       </div>

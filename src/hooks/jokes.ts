@@ -7,9 +7,12 @@ const useJokes = () => {
   const [joke, setJoke] = useState<IJoke>({} as IJoke);
   const [error, setError] = useState(null);
 
+  // const [page, setPage] = useState(initialPage);
+  // const [limit, setLimit] = useState(initialLimit);
+
   // useEffect(() => {
-  //   fetchJokes();
-  // }, []);
+  //   fetchJokesPaginate();
+  // }, [page, limit]);
 
   const sanitizeJoke = (joke: any): IJoke => {
     return {
@@ -21,6 +24,18 @@ const useJokes = () => {
       createdAt: joke.createdAt || joke.CreatedAt,
     }
   }
+
+  const fetchJokesPaginate = async (page: number = 1, limit: number = 5) => {
+    try {
+      const target = URL + `/?_page=${page}&_limit=${limit}}`
+      const response = await fetch(target);
+      const data = await response.json() as IJoke[]
+      console.log('fetchJokesPaginate', {target, data})
+      setJokes(data.map((joke: any) => sanitizeJoke(joke)));
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
 
   const fetchJokes = async () => {
     try {
@@ -87,7 +102,21 @@ const useJokes = () => {
     }
   };
 
-  return { jokes, joke, error, getJoke, deleteJoke, fetchJokes, updateJoke, createJoke };
+  return {
+    jokes,
+    joke,
+    error,
+    // page,
+    // limit,
+    // setPage,
+    // setLimit,
+    getJoke,
+    deleteJoke,
+    fetchJokes,
+    updateJoke,
+    createJoke,
+    fetchJokesPaginate
+  };
 };
 
 export default useJokes;

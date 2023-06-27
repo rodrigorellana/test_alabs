@@ -1,11 +1,20 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { IJoke } from '../interfaces/jokes';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useMemo } from 'react'
+import useJokes from '../hooks/jokes';
 
-const Table = ({ data }: { data: IJoke[] }) => {
+const Table = () => {
   const history = useHistory();
+  // const { jokes: data, error, setPage, limit, page, setLimit, fetchJokesPaginate } = useJokes(1, 5);
+  const { jokes: data, error, fetchJokesPaginate } = useJokes();
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+
+  useEffect(() => {
+    fetchJokesPaginate(page, limit)
+  }, [page, limit])
 
   const getColor = (views: number) => {
     if (views <= 25) {
@@ -16,7 +25,13 @@ const Table = ({ data }: { data: IJoke[] }) => {
       return { color: 'yellow' }
     } else if (views >= 76 && views <= 100) {
       return { color: 'green' }
-    } 
+    }
+  };
+
+  const handlePage = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    event.preventDefault()
+    setPage(1)
+    setLimit(event.target.value as unknown as number)
   };
 
   return (
@@ -44,8 +59,31 @@ const Table = ({ data }: { data: IJoke[] }) => {
             </tr>
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={4}>
+              <div>
+                <div>
+                  <button onClick={() => { history.push('/joke') }}>Add Joke</button>
+                </div>
+                <div>
+                  <p><label htmlFor="page_size">Page size:</label></p>
+                  <select name="page_size" id="page_size" onChange={handlePage}>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+                <div>
+                  {page > 1 && <button onClick={() => setPage(page - 1)}>{'<'}</button>}
+                  <p><label>Page {page}</label></p>
+                  {data.length > 0 && <button onClick={() => setPage(page + 1)}>{'>'}</button>}
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
       </table>
-      <button onClick={() => { history.push('/joke') }}>Add Joke</button>
+
     </div>
 
   );
