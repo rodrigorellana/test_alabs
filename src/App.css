@@ -16,7 +16,15 @@ main {
 form {
   align-items: center;
   display: flex;
-  justify-content: center;
+  flex-flow: column nowrap;
+}
+
+form > div {
+  flex: 1 0;
+}
+
+form > div:last-child {
+  margin-top: 0.5em;
 }
 
 table td {
