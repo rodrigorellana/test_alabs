@@ -1,6 +1,12 @@
 import React from 'react'
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 
-export const Jokes = () => {
+export const Jokes = ({ match }: RouteComponentProps<{ jokeId?: string}>) => {
+  const history = useHistory();
+  const { jokeId } = match.params;
+
+  console.log({ jokeId })
+
   const handleSubmit = (event: any) => {
     event.preventDefault()
   }
@@ -23,7 +29,7 @@ export const Jokes = () => {
       <div>
         <button type='submit'>Save</button>
         <button type='submit'>Delete</button>
-        <button type='submit'>Close</button>
+        <button onClick={() => { history.push('/jokes') }} type='submit'>Close</button>
       </div>
     </form>
   )

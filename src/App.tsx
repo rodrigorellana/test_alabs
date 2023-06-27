@@ -26,7 +26,9 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={ListJokes} />
-        <Route path="/jokes/:jokeId" component={JokePage} />
+        <Route exact path="/jokes" component={ListJokes} />
+        <Route path="/joke/:jokeId" component={JokePage} />
+        <Route path="/joke" component={JokePage} />
       </Switch>
     </Router>
   );
