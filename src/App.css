@@ -18,3 +18,10 @@ form {
   display: flex;
   justify-content: center;
 }
+
+table td {
+  border-right: 0.1rem solid
+}
+table th {
+  text-align: center;
+}
