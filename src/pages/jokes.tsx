@@ -7,7 +7,7 @@ import { IJoke } from '../interfaces/jokes';
 export const Jokes = ({ match }: RouteComponentProps<{ jokeId?: string }>) => {
   const history = useHistory();
   const { jokeId } = match.params;
-  const { error, joke, getJoke, updateJoke, createJoke } = useJokes();
+  const { error, joke, getJoke, updateJoke, deleteJoke, createJoke } = useJokes();
 
   useEffect(() => {
     if (jokeId) {
@@ -36,6 +36,11 @@ export const Jokes = ({ match }: RouteComponentProps<{ jokeId?: string }>) => {
       createJoke(jokeForm)
   }
 
+  const handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
+    deleteJoke(jokeId as string)
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -60,8 +65,8 @@ export const Jokes = ({ match }: RouteComponentProps<{ jokeId?: string }>) => {
       </div>
       <div>
         <button type='submit'>Save</button>
-        <button type='submit'>Delete</button>
-        <button onClick={() => { history.push('/jokes') }} type='submit'>Close</button>
+        {jokeId && <button onClick={handleDelete}>Delete</button>}
+        <button onClick={() => { history.push('/jokes') }}>Close</button>
       </div>
     </form>
   )

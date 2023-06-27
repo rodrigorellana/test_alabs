@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { IJoke } from '../interfaces/jokes';
-// import axios from 'axios';
 const URL = 'https://retoolapi.dev/zu9TVE/jokes'
 
 const useJokes = () => {
@@ -14,7 +13,6 @@ const useJokes = () => {
 
   const fetchJokes = async () => {
     try {
-      // const response = await axios.get('/api/jokes');
       const response = await fetch(URL);
       const data = await response.json()
       console.log('fetchJokes', data)
@@ -26,7 +24,6 @@ const useJokes = () => {
 
   const getJoke = async (id: string) => {
     try {
-      // const response = await axios.get('/api/jokes');
       const response = await fetch(`${URL}/${id}`);
       const data = await response.json()
       setJoke(data);
@@ -69,17 +66,18 @@ const useJokes = () => {
     }
   };
 
-  // const deleteJoke = async (id) => {
-  //   try {
-  //     await axios.delete(`/api/jokes/${id}`);
-  //     setJokes(jokes.filter(joke => joke.id !== id));
-  //   } catch (err) {
-  //     setError(err.message);
-  //   }
-  // };
+  const deleteJoke = async (id: string) => {
+    try {
+      await fetch(`${URL}/${id}`, {
+        method: 'DELETE',
+      })
+      setJokes(jokes.filter(joke => joke.id !== id));
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
 
-
-  return { jokes, joke, error, getJoke, fetchJokes, updateJoke, createJoke };
+  return { jokes, joke, error, getJoke, deleteJoke, fetchJokes, updateJoke, createJoke };
 };
 
 export default useJokes;
