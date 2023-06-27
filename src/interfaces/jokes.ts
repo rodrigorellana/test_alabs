@@ -1,5 +1,5 @@
 export interface IJoke {
-  id: number;
+  id?: string;
   views: number;
   body: string;
   title: string;
