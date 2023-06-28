@@ -1,40 +1,27 @@
-import React, { useEffect } from 'react';
 import './App.css'
-import Jokes from './services/jokes';
 import Table from './components/table';
-import { IJoke } from './interfaces/jokes';
 import { Jokes as JokePage } from './pages/jokes';
-// import { JokesGET } from './services/jokes';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import useJokes from './hooks/jokes';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import ProtectedRoute from './config/protectedRoute';
+import useAuth from './hooks/auth';
 
 function App() {
 
   const ListJokes = () => {
-
-    // const [data, setData] = React.useState<IJoke[]>([])
-    // useEffect(() => {
-    //   const fetchJokes = async () => {
-    //     const jokes = await JokesGET();
-    //     console.log({jokes})
-    //     setData(jokes)
-    //   }
-    //   fetchJokes()
-    // }, [])
-
-    // useEffect(() => {
-    //   fetchJokes()
-    // }, [])
+    const { user, signOut } = useAuth();
 
     return (
       <div className="App">
         <header>
-          <h1> Prueba Tecnica para Acid Labs 2023 </h1>
-          <main>
-            <Table />
-          </main>
+          <div><h1> Prueba Tecnica para Acid Labs 2023 </h1></div>
+          <div>
+            <p>{user?.name}</p>
+            <a href='/' onClick={signOut}>Cerrar sesion</a>
+          </div>
         </header>
+        <main>
+          <Table />
+        </main>
       </div>
     )
   }

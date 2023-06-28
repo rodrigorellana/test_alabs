@@ -19,15 +19,16 @@ form {
   flex-flow: column nowrap;
 }
 
-form > div {
+form>div {
   flex: 1 0;
   width: 400px;
 }
-form > div  > input{
+
+form>div>input {
   width: 100%;
 }
 
-form > div:last-child {
+form>div:last-child {
   margin-top: 0.5em;
   display: flex;
 }
@@ -52,7 +53,25 @@ table div p {
   padding-right: 0.3rem;
 }
 
-table > tfoot div {
+table>tfoot div {
   display: flex;
   justify-content: space-between;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+header>div:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header p {
+  text-transform: capitalize;
+  margin: 0;
+  font-weight: bolder;
 }
