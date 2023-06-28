@@ -5,12 +5,19 @@ import { useHistory } from 'react-router-dom';
 import { useMemo } from 'react'
 import useJokes from '../hooks/jokes';
 
+const getPageInfo = (target : string, def: number) : number => {
+  const value = localStorage.getItem(target);
+  if (value) {
+    return parseInt(value)
+  } else return def
+}
+
 const Table = () => {
   const history = useHistory();
   // const { jokes: data, error, setPage, limit, page, setLimit, fetchJokesPaginate } = useJokes(1, 5);
   const { jokes: data, error, fetchJokesPaginate } = useJokes();
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState<number>(getPageInfo('page', 1));
+  const [limit, setLimit] = useState<number>(getPageInfo('limit', 5));
 
   useEffect(() => {
     fetchJokesPaginate(page, limit)

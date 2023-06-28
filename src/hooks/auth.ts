@@ -18,6 +18,8 @@ const useAuth = () => {
 
   const signOut = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('page');
+    localStorage.removeItem('limit');
     setUser(null);
   };
 

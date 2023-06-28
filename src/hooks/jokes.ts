@@ -31,6 +31,9 @@ const useJokes = () => {
       const response = await fetch(target);
       const data = await response.json() as IJoke[]
       console.log('fetchJokesPaginate', {target, data})
+      localStorage.setItem('page', JSON.stringify(page));
+      localStorage.setItem('limit', JSON.stringify(limit));
+
       setJokes(data.map((joke: any) => sanitizeJoke(joke)));
     } catch (err: any) {
       setError(err.message);
