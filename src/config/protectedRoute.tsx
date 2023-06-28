@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Route } from 'react-router-dom';
 import { IUser } from '../interfaces/jokes';
 import useAuth from '../hooks/auth';
+import UserContext from '../contexts/userContext';
 
 const ProtectedRoute = ({ component: Component, ...rest }: any) => {
   const [isLoading, setLoading] = useState(true);
-  const { user, signIn } = useAuth();
+  const { user, signIn } = useContext(UserContext);
 
   useEffect(() => {
     loadUser()
@@ -36,8 +37,10 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
             <Component {...props} />
           ) : (
             <>
-              <h1>Debe iniciar sesion</h1>
+             <div className='login_div'>
+             <h1>Debe iniciar sesion</h1>
               <button onClick={handleSubmit}>Iniciar sesion</button>
+             </div>
             </>
           )}
       />

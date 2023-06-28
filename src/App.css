@@ -75,3 +75,12 @@ header p {
   margin: 0;
   font-weight: bolder;
 }
+
+.login_div {
+  display: flex;
+  flex-direction: column;
+}
+
+.login_div button {
+  align-self: center;
+}

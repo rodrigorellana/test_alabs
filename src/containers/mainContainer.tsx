@@ -1,12 +1,16 @@
 import Header from '../components/header';
+import UserProvider from '../contexts/userProvider';
+
 export default function MainContainer({ children }: any) {
   return (
     <>
       <div className="App">
-        <Header/>
-        <main>
-          {children}
-        </main>
+        <UserProvider>
+          <Header />
+          <main>
+            {children}
+          </main>
+        </UserProvider>
       </div>
     </>
   );

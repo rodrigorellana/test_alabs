@@ -4,9 +4,7 @@ const useDarkMode = () => {
   const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
 
   useEffect(() => {
-    console.log('useEffect', isDarkMode);
     setTheme(() => {
-      console.log('initiateTheme OK', isDarkMode);
     });
   }, [isDarkMode]);
 
@@ -30,7 +28,6 @@ const useDarkMode = () => {
     themeCSS.onload = styleLoaded;
     themeCSS.href = rootCSS + targetCSS;
     document.head.appendChild(themeCSS);
-    console.log('initiateTheme 1', { isDarkMode, targetCSS });
     scriptLoaded(true);
     return () => {
       document.body.removeChild(themeCSS);
