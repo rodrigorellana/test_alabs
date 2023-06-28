@@ -1,13 +1,16 @@
+"use client"
 import React, { useEffect } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom';
 import { JokesPOST } from '../services/jokes';
 import useJokes from '../hooks/jokes';
 import { IJoke } from '../interfaces/jokes';
+import { useErrorBoundary } from 'react-error-boundary'
 
 export const Jokes = ({ match }: RouteComponentProps<{ jokeId?: string }>) => {
   const history = useHistory();
   const { jokeId } = match.params;
   const { error, joke, getJoke, updateJoke, deleteJoke, createJoke } = useJokes();
+  const { showBoundary } = useErrorBoundary()
 
   useEffect(() => {
     if (jokeId) {
@@ -20,7 +23,7 @@ export const Jokes = ({ match }: RouteComponentProps<{ jokeId?: string }>) => {
     return obj.value
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const jokeForm: IJoke = {
       title: getValue(event, 'title'),
@@ -29,19 +32,23 @@ export const Jokes = ({ match }: RouteComponentProps<{ jokeId?: string }>) => {
       author: getValue(event, 'author'),
       id: jokeId
     }
+    console.log('handleSubmit', { jokeId })
     if (jokeId) {
       jokeForm.createdAt = joke.createdAt
-      updateJoke(jokeForm)
+      await updateJoke(jokeForm)
     } else {
-      createJoke(jokeForm)
-      localStorage.removeItem('page');
+      const res = await createJoke(jokeForm)
+      if (res) {
+        localStorage.removeItem('page')
+        history.push('/jokes')
+      }
     }
   }
 
   const handleDelete = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
-    await deleteJoke(jokeId as string)
-    // history.push('/jokes')
+    const res = await deleteJoke(jokeId as string)
+    if (res) history.push('/jokes')
   }
 
   return (

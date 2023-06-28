@@ -78,6 +78,7 @@ const Table = () => {
                   <select name="page_size" id="page_size" onChange={handlePage}>
                     <option value="5">5</option>
                     <option value="10">10</option>
+                    {/* PULGX TODO set valur from localstorage */}
                   </select>
                 </div>
                 <div>

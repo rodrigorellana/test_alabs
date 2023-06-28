@@ -84,3 +84,17 @@ header p {
 .login_div button {
   align-self: center;
 }
+
+body > iframe {
+  display: none;
+}
+
+.div_error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.div_error h2 {
+  align-self: center;
+}

@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Acid Labs Test",
+  "name": "Acid Labs Test",
+  "author": "Rodrigo Orellana",
   "icons": [
     {
       "src": "favicon.ico",
