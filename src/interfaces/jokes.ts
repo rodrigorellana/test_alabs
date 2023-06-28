@@ -7,3 +7,8 @@ export interface IJoke {
   id?: string;
   createdAt?: string;
 }
+
+export interface IUser {
+  name: string;
+}
+
