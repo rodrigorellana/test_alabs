@@ -32,13 +32,16 @@ export const Jokes = ({ match }: RouteComponentProps<{ jokeId?: string }>) => {
     if (jokeId) {
       jokeForm.createdAt = joke.createdAt
       updateJoke(jokeForm)
-    } else 
+    } else {
       createJoke(jokeForm)
+      localStorage.removeItem('page');
+    }
   }
 
-  const handleDelete = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleDelete = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
-    deleteJoke(jokeId as string)
+    await deleteJoke(jokeId as string)
+    // history.push('/jokes')
   }
 
   return (

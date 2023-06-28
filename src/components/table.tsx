@@ -38,7 +38,7 @@ const Table = () => {
   const handlePage = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault()
     setPage(1)
-    setLimit(event.target.value as unknown as number)
+    setLimit(parseInt(event.target.value))
   };
 
   return (
@@ -83,7 +83,7 @@ const Table = () => {
                 <div>
                   {page > 1 && <button onClick={() => setPage(page - 1)}>{'<'}</button>}
                   <p><label>Page {page}</label></p>
-                  {data.length > 0 && <button onClick={() => setPage(page + 1)}>{'>'}</button>}
+                  {(data.length > 0 && data.length === limit) && <button onClick={() => setPage(page + 1)}>{'>'}</button>}
                 </div>
               </div>
             </td>

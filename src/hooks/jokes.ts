@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { IJoke } from '../interfaces/jokes';
 const URL = 'https://retoolapi.dev/zu9TVE/jokes'
 
@@ -6,13 +6,7 @@ const useJokes = () => {
   const [jokes, setJokes] = useState<IJoke[]>([]);
   const [joke, setJoke] = useState<IJoke>({} as IJoke);
   const [error, setError] = useState(null);
-
-  // const [page, setPage] = useState(initialPage);
-  // const [limit, setLimit] = useState(initialLimit);
-
-  // useEffect(() => {
-  //   fetchJokesPaginate();
-  // }, [page, limit]);
+  //PULGX TODO move page logic to this hook
 
   const sanitizeJoke = (joke: any): IJoke => {
     return {
@@ -27,13 +21,12 @@ const useJokes = () => {
 
   const fetchJokesPaginate = async (page: number = 1, limit: number = 5) => {
     try {
-      const target = URL + `/?_page=${page}&_limit=${limit}}`
+      const target = URL + `/?_page=${page}&_limit=${limit}&_sort=id&_order=desc`
       const response = await fetch(target);
       const data = await response.json() as IJoke[]
-      console.log('fetchJokesPaginate', {target, data})
+      console.log('fetchJokesPaginate', {target, data, page, limit})
       localStorage.setItem('page', JSON.stringify(page));
       localStorage.setItem('limit', JSON.stringify(limit));
-
       setJokes(data.map((joke: any) => sanitizeJoke(joke)));
     } catch (err: any) {
       setError(err.message);
@@ -109,10 +102,6 @@ const useJokes = () => {
     jokes,
     joke,
     error,
-    // page,
-    // limit,
-    // setPage,
-    // setLimit,
     getJoke,
     deleteJoke,
     fetchJokes,
