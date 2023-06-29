@@ -8,8 +8,6 @@ export default function UserProvider({ children }: any) {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-
-    console.log('UserProvider', storedUser);
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }

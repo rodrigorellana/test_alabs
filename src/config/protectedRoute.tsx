@@ -1,7 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
 import { Route } from 'react-router-dom';
-import { IUser } from '../interfaces/jokes';
-import useAuth from '../hooks/auth';
 import UserContext from '../contexts/userContext';
 
 const ProtectedRoute = ({ component: Component, ...rest }: any) => {
@@ -20,6 +18,7 @@ const ProtectedRoute = ({ component: Component, ...rest }: any) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    setLoading(true);
     setTimeout(() => {
       setLoading(false);
       signIn({ name: 'acid labs' });

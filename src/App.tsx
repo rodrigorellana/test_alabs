@@ -1,11 +1,11 @@
 "use client"
 import './App.css'
-import Table from './components/table';
+import JokesTable from './components/table';
 import { Jokes as JokePage } from './pages/jokes';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
 import ProtectedRoute from './config/protectedRoute';
 import MainContainer from './containers/mainContainer';
-import { ErrorBoundary } from 'react-error-boundary';
 import ErrorComponent from './components/errorComponent';
 
 function App() {
@@ -16,8 +16,8 @@ function App() {
       <MainContainer>
         <Router>
           <Switch>
-            <ProtectedRoute exact path="/" component={Table} />
-            <ProtectedRoute exact path="/jokes/" component={Table} />
+            <ProtectedRoute exact path="/" component={JokesTable} />
+            <ProtectedRoute exact path="/jokes/" component={JokesTable} />
             <ProtectedRoute path="/joke/:jokeId" component={JokePage} />
             <ProtectedRoute path="/joke" component={JokePage} />
           </Switch>

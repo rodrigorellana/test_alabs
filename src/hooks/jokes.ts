@@ -11,14 +11,23 @@ const useJokes = () => {
   const { showBoundary } = useErrorBoundary()
   //PULGX TODO move page logic to this hook
 
+  const getFormatedDate = (date: string) => {
+    try {
+      return new Intl.DateTimeFormat('en-US').format(new Date(date))
+    } catch (error) {
+      return date
+    }
+  }
+
   const sanitizeJoke = (joke: any): IJoke => {
     return {
       id: joke.id,
       title: joke.title || joke.Title || joke.query,
-      views: joke.views || joke.Views,
+      // views: (joke.views ? joke.views : joke.Views) ,
+      views: joke.views,
       body: joke.body || joke.Body,
       author: joke.author || joke.Author,
-      createdAt: joke.createdAt || joke.CreatedAt,
+      createdAt: getFormatedDate(joke.createdAt || joke.CreatedAt)
     }
   }
 
@@ -41,7 +50,6 @@ const useJokes = () => {
       const target = URL + `/?_page=${page}&_limit=${limit}&_sort=id&_order=desc`
       const response = await axios.get(target)
       const data = response.data as IJoke[]
-      console.log('fetchJokesPaginate', { target, response, data, page, limit })
       localStorage.setItem('page', JSON.stringify(page));
       localStorage.setItem('limit', JSON.stringify(limit));
       setJokes(data.map((joke: any) => sanitizeJoke(joke)));
